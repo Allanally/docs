@@ -1,23 +1,32 @@
-import { Document } from "@prisma/client";
 import { db } from "@/lib/db";
+import { Document, Attachment } from "@prisma/client";
 
 type GetDocuments = {
-    userId: string;
-}
+  userId: string;
+};
 
 export const getDocuments = async ({
-    userId
-}: GetDocuments): Promise<Document[]> => {
-    try {
-        const documents = await db.document.findMany({
-            orderBy: {
-                createdAt: "desc"
-            }
-        });
+  userId,
+}: GetDocuments): Promise<(Document & { attachments: Attachment[] })[]> => {
+  try {
+    const documents = await db.document.findMany({
+      where: {
+        userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        Attachments: true, 
+      },
+    });
 
-        return documents;
-    } catch (error) {
-        console.log("[GET_DOCUMENTS]", error);
-        return [];
-    }
+    return documents.map((doc) => ({
+      ...doc,
+      attachments: doc.Attachments, 
+    }));
+  } catch (error) {
+    console.log("[GET_DOCUMENTS]", error);
+    return [];
+  }
 };

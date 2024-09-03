@@ -21,8 +21,8 @@ const guestRoutes = [
  [ 
     {
         icon:List,
-        label:"Courses",
-        href: "/teacher/courses"
+        label:"Documents",
+        href: "/admin/docs"
     },
     {
         icon: BarChart,
@@ -34,7 +34,7 @@ const guestRoutes = [
 export const SidebarRoutes = () => {
     const pathname = usePathname();
 
-    const isTeacherPage = pathname?.includes("/teacher");
+    const isTeacherPage = pathname?.includes("/admin");
     const routes = isTeacherPage ? teacherRoutes : guestRoutes ;
 
    return (

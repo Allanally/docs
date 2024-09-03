@@ -15,7 +15,7 @@ export const DocumentCard = ({
   description,
 }: DocumentCardProps) => {
   return (
-    <Link href={`/docs/${id}`}>
+    <Link href={`/documents/${id}`}>
       <div className="group hover:shadow-sm transition overflow-hidden border rounded-e-lg p-3 h-full">
         <div className="relative w-full aspect-video rounded-md overflow-hidden">
           <Image 
